@@ -1,0 +1,156 @@
+#function goes here
+import random
+
+def yes_no(question):
+  valid=False
+  while not valid:
+    response = input (question) .lower()
+
+    if response == "yes" or response  == "y":   
+        response = "yes"
+        return response
+      
+    elif response == "no" or response  == "n":
+        response = "no"
+        return response        
+
+    else:
+      print ("please enter yes or no")
+
+       
+def understand_(questions):
+  valid=False
+  while not valid:
+    understand_ = input (questions).lower ()
+
+    if understand_ == "yes"  or understand_ == "y":
+      understand_ = "yes"
+      return understand_
+
+    elif understand_ == "no"  or understand_ == "n":
+      understand_ = "no"
+      return understand_
+    
+    else:
+      print ("please enter yes or no")
+
+
+
+def instructions():
+  print("***How to Play***")
+  print()
+  print("the rules")
+  print()
+  return ""
+  
+
+def num_check (question, low, high):
+  error = "please enter a whole number between 1 and 10\n"
+
+  valid = False
+  while not valid:
+    try:
+      response = int(input(question))
+      #if the amount is too low /too high give
+      if low < response <= high:
+        return response
+      
+        #output an error
+      else:
+        print(error)
+    except ValueError:
+     print(error)
+
+def statement_generator(statement, decoration):
+
+  sides = decoration * 3
+
+  statement = "{} {} {}".format(sides, statement, sides)
+  top_bottom = decoration * len(statement)
+
+  print (top_bottom)
+  print (statement)
+  print (top_bottom)
+
+  return ""
+
+
+
+
+#main routine 
+
+#welcome them to the game
+
+#ask if they have played before
+played_before = yes_no ("Have you played the game before?" + "\n")
+
+if played_before == "yes":
+  print("program continues")
+
+elif played_before == "no":
+  print("display instructions")
+  instructions()
+
+else:
+  print ("please enter yes or no")
+
+ud = understand_ ("Do you understand the rules?" + "\n")
+if ud == "yes" or ud == "y":
+  print ()
+if ud == "no" or ud == "n":
+  print ()
+
+# ask how much they want to play with
+how_much = num_check ("how much would you like to play with? ", 0, 10)
+
+
+print("you will be spending ${}".format(how_much))
+
+balance = how_much
+
+rounds_played = 0
+
+play_again = input("Press <Enter> to play...")
+while play_again == "":
+
+  #increase # of rounds rounds_played
+  rounds_played += 1
+
+  #print round number
+  print ()
+  print ("*** Round #{} ***".format(rounds_played))
+  chosen_num = random.randint(1,100)
+
+  if 1 <= chosen_num <= 5:
+   chosen = "unicorn"
+   prize_decoration = "!"
+   balance += 4
+
+  elif 6 <= chosen_num <= 36:
+   chosen = "donkey"
+   prize_decoration = "D"
+   balance -= 1
+
+  else:
+    if chosen_num % 2 == 0:
+     chosen = "horse"
+     prize_decoration = "H"
+
+    else:
+     chosen = "zebra"
+     prize_decoration = "Z"
+    balance -= 0.5
+  
+  outcome = ("you got a {}. Your balance is " "${:.2f}".format(chosen, balance))
+
+  statement_generator(outcome, prize_decoration)
+
+  if balance < 1:
+   play_again = 'xxx'
+   print ()
+   print("sorry you have run out of money")
+  else:  
+   play_again = input ("Press enter to play again" " or 'xxx' to quit")
+
+print()
+print ("Final Balance", balance) 
